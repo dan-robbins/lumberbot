@@ -5,14 +5,16 @@ const client = new Discord.Client();
 const fs = require('fs');
 const config = require("./config.json");
 
+const changeWoodName = false;
+const deleteHa = false;
+const unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
+
 const clean = text => {
     if(typeof(text) === "string")
         return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
     else
         return text;
 }
-
-const unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 
 client.on("ready", () => {
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`);
@@ -36,13 +38,15 @@ client.on("messageReactionAdd", async (messageReaction, user) => {
             await messageReaction.message.channel.send(`Milestone reached! ${records.woods} total woods!`);
         }
         if(records.woods % 1540 === 0){
-            await messageReaction.message.channel.send(`1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} We have officially reached wood levels ${records.woods/1540}x higher than ${client.users.get(config.alexid)} SAT score! Congratulations!`);
+            await messageReaction.message.channel.send(`1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} We have officially reached wood levels ${records.woods/1540}x higher than ${client.users.get(config.alexid)}\'s SAT score! Congratulations!`);
         }
         if(messageReaction.count > records.record){
             await messageReaction.message.channel.send(`New record! ${messageReaction.count} woods on a single post! Previous record was ${records.record} woods.`);
             records.record = messageReaction.count;
         }
-        client.guilds.get(config.serverid).members.get(config.woodid).setNickname(records.woods.toString(10));
+        if(changeWoodName){
+            client.guilds.get(config.serverid).members.get(config.woodid).setNickname(records.woods.toString(10));
+        }
         fs.writeFileSync('records.json', (JSON.stringify(records, null, 4)));
         return;
     }
@@ -57,7 +61,9 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
     if(messageReaction.emoji.id === wood.id && messageReaction.message.author.id === config.woodid){
         let records = JSON.parse(fs.readFileSync('records.json'));
         records.woods = records.woods - 1;
-        client.guilds.get(config.serverid).members.get(config.woodid).setNickname(records.woods.toString(10));
+        if(changeWoodName){
+            client.guilds.get(config.serverid).members.get(config.woodid).setNickname(records.woods.toString(10));
+        }
         fs.writeFileSync('records.json', (JSON.stringify(records, null, 4)));
         return;
     }
@@ -70,15 +76,15 @@ client.on("message", async message => {
     if(message.author.id === config.woodid){
         const wood = client.emojis.find("name", "Wood");
         message.react(wood.id);
-        /*if(message.content === "ha"){
+        if(deleteHa && message.content === "ha"){
             message.delete();
             return;
-        }*/
+        }
     }
 
     if(message.content === "livecounter"){
         let records = JSON.parse(fs.readFileSync('records.json'));
-        await message.channel.send(`A total of ${records.woods} woods since January 18th 2018, with a record of ${records.record} woods on a single post. A total of ${records.aces} Danny aces.`);
+        await message.channel.send(`A total of ${records.woods} woods since January 18th 2018, with a record of ${records.record} woods on a single post. A total of ${records.aces} Danny ace${records.aces === 1 ? '' : 's'}.`);
     }
     if(message.author.id !== client.id && message.channel.type === "dm" && message.author.id !== config.ownerid){
         client.users.get(config.ownerid).send(`DM recieved from ${message.author.tag} at ${new Date()}\nContent: ${message.content}`)
@@ -188,7 +194,7 @@ client.on("message", async message => {
                     return;
                 }
             }
-            else if(args[0] === "remove"){
+            else if(args[0] === "remove" || args[0] === "subtract"){
 	    		if(args[1] === "woods"){
                     let parsed = parseInt(args[2], 10);
                     if(!isNaN(parsed)){

@@ -5,9 +5,9 @@ const client = new Discord.Client();
 const fs = require('fs');
 const config = require("./config.json");
 
-const changeWoodName = false;
-const deleteHa = false;
-const unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
+var changeWoodName = false;
+var deleteHa = false;
+var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 
 const clean = text => {
     if(typeof(text) === "string")

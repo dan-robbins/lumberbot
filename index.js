@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const fs = require('fs');
 const config = require("./config.json");
 
-var changeWoodName = false;
+var changeWoodName = true;
 var deleteHa = false;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 

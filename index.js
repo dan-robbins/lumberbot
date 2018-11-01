@@ -93,11 +93,11 @@ client.on("message", async message => {
     }
 
     if(message.content.toLowerCase === "!alexa play despacito" || message.content.toLowerCase === "+alexa play despacito" || message.content.toLowerCase === "alexa play despacito" || message.content.toLowerCase === "play despacito" || message.content.toLowerCase === "!play despacito" || message.content.toLowerCase === "+play despacito"){
-        message.reply("https://www.youtube.com/watch?v=kJQP7kiw5Fk")
+        message.channel.send("https://www.youtube.com/watch?v=kJQP7kiw5Fk");
     }
 
     if(message.content.toLowerCase === "!alexa play waluigi" || message.content.toLowerCase === "+alexa play waluigi" || message.content.toLowerCase === "alexa play waluigi" || message.content.toLowerCase === "play waluigi" || message.content.toLowerCase === "!play waluigi" || message.content.toLowerCase === "+play waluigi"){
-        message.reply("https://www.youtube.com/watch?v=yQ0iTDafXuM")
+        message.channel.send("https://www.youtube.com/watch?v=yQ0iTDafXuM");
     }
 
     if(message.author.id !== client.id && message.channel.type === "dm" && message.author.id !== config.ownerid){

@@ -40,6 +40,9 @@ client.on("messageReactionAdd", async (messageReaction, user) => {
         if(records.woods % 1540 === 0){
             await messageReaction.message.channel.send(`1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} We have officially reached wood levels ${records.woods/1540}x higher than ${client.users.get(config.alexid)}\'s SAT score! Congratulations!`);
         }
+        if(records.woods === 6969){
+            await messageReaction.message.channel.send("6969 Woods!\nhttps://www.youtube.com/watch?v=PvLz5kCVIss")
+        }
         if(messageReaction.count > records.record){
             await messageReaction.message.channel.send(`New record! ${messageReaction.count} woods on a single post! Previous record was ${records.record} woods.`);
             records.record = messageReaction.count;

@@ -76,6 +76,8 @@ client.on("message", async message => {
 
     if(message.author.bot) return;
 
+    const wood = client.emojis.find("name", "Wood");
+
     if(message.author.id === config.woodid){
         const wood = client.emojis.find("name", "Wood");
         message.react(wood.id);
@@ -85,10 +87,19 @@ client.on("message", async message => {
         }
     }
 
-    if(message.content === "livecounter"){
+    if(message.content.toLowerCase === "livecounter"){
         let records = JSON.parse(fs.readFileSync('records.json'));
         await message.channel.send(`A total of ${records.woods} woods since January 18th 2018, with a record of ${records.record} woods on a single post. A total of ${records.aces} Danny ace${records.aces === 1 ? '' : 's'}.`);
     }
+
+    if(message.content.toLowerCase === "!alexa play despacito" || message.content.toLowerCase === "+alexa play despacito" || message.content.toLowerCase === "alexa play despacito" || message.content.toLowerCase === "play despacito" || message.content.toLowerCase === "!play despacito" || message.content.toLowerCase === "+play despacito"){
+        message.reply("https://www.youtube.com/watch?v=kJQP7kiw5Fk")
+    }
+
+    if(message.content.toLowerCase === "!alexa play waluigi" || message.content.toLowerCase === "+alexa play waluigi" || message.content.toLowerCase === "alexa play waluigi" || message.content.toLowerCase === "play waluigi" || message.content.toLowerCase === "!play waluigi" || message.content.toLowerCase === "+play waluigi"){
+        message.reply("https://www.youtube.com/watch?v=yQ0iTDafXuM")
+    }
+
     if(message.author.id !== client.id && message.channel.type === "dm" && message.author.id !== config.ownerid){
         client.users.get(config.ownerid).send(`DM recieved from ${message.author.tag} at ${new Date()}\nContent: ${message.content}`)
     }

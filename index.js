@@ -87,16 +87,16 @@ client.on("message", async message => {
         }
     }
 
-    if(message.content.toLowerCase === "livecounter"){
+    if(message.content.toLowerCase() === "livecounter"){
         let records = JSON.parse(fs.readFileSync('records.json'));
         await message.channel.send(`A total of ${records.woods} woods since January 18th 2018, with a record of ${records.record} woods on a single post. A total of ${records.aces} Danny ace${records.aces === 1 ? '' : 's'}.`);
     }
 
-    if(message.content.toLowerCase === "!alexa play despacito" || message.content.toLowerCase === "+alexa play despacito" || message.content.toLowerCase === "alexa play despacito" || message.content.toLowerCase === "play despacito" || message.content.toLowerCase === "!play despacito" || message.content.toLowerCase === "+play despacito"){
+    if(message.content.toLowerCase() === "!alexa play despacito" || message.content.toLowerCase() === "+alexa play despacito" || message.content.toLowerCase() === "alexa play despacito" || message.content.toLowerCase() === "play despacito" || message.content.toLowerCase() === "!play despacito" || message.content.toLowerCase() === "+play despacito"){
         message.channel.send("https://www.youtube.com/watch?v=kJQP7kiw5Fk");
     }
 
-    if(message.content.toLowerCase === "!alexa play waluigi" || message.content.toLowerCase === "+alexa play waluigi" || message.content.toLowerCase === "alexa play waluigi" || message.content.toLowerCase === "play waluigi" || message.content.toLowerCase === "!play waluigi" || message.content.toLowerCase === "+play waluigi"){
+    if(message.content.toLowerCase() === "!alexa play waluigi" || message.content.toLowerCase() === "+alexa play waluigi" || message.content.toLowerCase() === "alexa play waluigi" || message.content.toLowerCase() === "play waluigi" || message.content.toLowerCase() === "!play waluigi" || message.content.toLowerCase() === "+play waluigi"){
         message.channel.send("https://www.youtube.com/watch?v=yQ0iTDafXuM");
     }
 

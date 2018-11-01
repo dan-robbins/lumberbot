@@ -93,11 +93,37 @@ client.on("message", async message => {
     }
 
     if(message.content.toLowerCase() === "!alexa play despacito" || message.content.toLowerCase() === "+alexa play despacito" || message.content.toLowerCase() === "alexa play despacito" || message.content.toLowerCase() === "play despacito" || message.content.toLowerCase() === "!play despacito" || message.content.toLowerCase() === "+play despacito"){
-        message.channel.send("https://www.youtube.com/watch?v=kJQP7kiw5Fk");
+        message.reply("https://www.youtube.com/watch?v=kJQP7kiw5Fk");
     }
 
     if(message.content.toLowerCase() === "!alexa play waluigi" || message.content.toLowerCase() === "+alexa play waluigi" || message.content.toLowerCase() === "alexa play waluigi" || message.content.toLowerCase() === "play waluigi" || message.content.toLowerCase() === "!play waluigi" || message.content.toLowerCase() === "+play waluigi"){
-        message.channel.send("https://www.youtube.com/watch?v=yQ0iTDafXuM");
+        message.reply("https://www.youtube.com/watch?v=yQ0iTDafXuM");
+    }
+
+    if(message.content.toLowerCase() === "!waluigi" || message.content.toLowerCase() === "+waluigi"){
+        var responses = [
+            "https://i.imgur.com/NM9dE18.jpg",
+            "http://i.imgur.com/jAPpdaE.jpg",
+            "https://i.imgur.com/1dTZOx9.jpg",
+            "https://i.imgur.com/gANV354.png",
+            "https://i.imgur.com/G80NvVs.jpg",
+            "https://i.imgur.com/snDLShN.png",
+            "https://i.imgur.com/SpEhovO.jpg",
+            "https://i.imgur.com/rnodf7X.jpg",
+            "https://i.imgur.com/VoN41wR.png",
+            "https://i.imgur.com/6eERewD.jpg",
+            "https://i.imgur.com/mHMqUnu.jpg",
+            "https://i.imgur.com/r50XVDd.jpg",
+            "https://i.imgur.com/8noTA67.png",
+            "https://i.imgur.com/k0THQ4s.jpg",
+            "https://i.imgur.com/OTGWbqF.jpg",
+            "https://i.imgur.com/xZ3jAUA.jpg",
+            "https://i.imgur.com/o2HUg9x.jpg",
+            "https://i.imgur.com/MDtAvmK.jpg",
+            "https://i.imgur.com/HqghE19.jpg"
+        ];
+        var response = responses[Math.floor(Math.random() * responses.length)];
+        message.channel.send(`${client.users.get(config.nealid)} ${response}`);
     }
 
     if(message.author.id !== client.id && message.channel.type === "dm" && message.author.id !== config.ownerid){

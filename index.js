@@ -122,7 +122,9 @@ client.on("message", async message => {
             "https://i.imgur.com/MDtAvmK.jpg",
             "https://i.imgur.com/HqghE19.jpg",
             "https://i.imgur.com/69AgXiB.png",
-            "https://i.imgur.com/HmeqCMK.jpg"
+            "https://i.imgur.com/HmeqCMK.jpg",
+            "https://i.imgur.com/cPe3Zpt.png",
+            "http://i.imgur.com/qeCpN41.jpg"
         ];
         var response = responses[Math.floor(Math.random() * responses.length)];
         message.channel.send(`${client.users.get(config.nealid)} ${response}`);
@@ -290,6 +292,21 @@ client.on("message", async message => {
             message.channel.send(unauth);
             return;
         }
+    }
+
+    else if(command === "define"){
+        let url = "https://googledictionaryapi.eu-gb.mybluemix.net/?define={word}&lang=en"
+        url = url.encodeURI(url.replace("{word}", args[0]));
+
+        request(url, (err, response, body) => {
+            if (err || response.statusCode !== 200) message.reply(`The API seems to be having some issues right now, try again later!`);
+
+            const r = JSON.parse(body);
+
+            if (r.result_type == "no_results") message.reply(`Could not find any hits for '${args[0]}', please try again!`);
+
+            messgae.reply(r)
+        });
     }
 
     else if(command === "eval"){

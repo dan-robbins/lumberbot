@@ -306,7 +306,7 @@ client.on("message", async message => {
 
             if (r.result_type == "no_results") message.reply(`Could not find any hits for '${args[0]}', please try again!`);
 
-            message.reply(JSON.stringify(r, null, 4));
+            message.reply(r.definition);
         });
     }
 

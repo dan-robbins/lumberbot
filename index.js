@@ -312,7 +312,7 @@ client.on("message", async message => {
 
             for(var x in meaning){
                 for(var y in meaning[x]){
-                    msg.concat(`${y.definition}\n`)
+                    msg.concat(`${JSON.stringify(y.definition, null, 4)}\n`)
                 }
             }
             message.reply(msg);

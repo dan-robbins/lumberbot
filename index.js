@@ -306,7 +306,14 @@ client.on("message", async message => {
 
             if (r.result_type == "no_results") message.reply(`Could not find any hits for '${args[0]}', please try again!`);
 
-            message.reply(r.definition);
+            let msg = `${args[0]}:\n`
+
+            for(x in r.meaning){
+                for(y in x){
+                    msg.concat(`${y.definition}\n`)
+                }
+            }
+            message.reply(msg);
         });
     }
 

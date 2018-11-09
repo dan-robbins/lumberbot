@@ -308,8 +308,10 @@ client.on("message", async message => {
 
             let msg = `${args[0]}:\n`
 
-            for(x in r.meaning){
-                for(y in r.meaning[x]){
+            let meaning = r.meaning;
+
+            for(x in meaning){
+                for(y in meaning[x]){
                     msg.concat(`${y.definition}\n`)
                 }
             }

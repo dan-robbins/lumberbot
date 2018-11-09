@@ -296,7 +296,7 @@ client.on("message", async message => {
 
     else if(command === "define"){
         let url = "https://googledictionaryapi.eu-gb.mybluemix.net/?define={word}&lang=en"
-        url = url.encodeURI(url.replace("{word}", args[0]));
+        url = encodeURI(url.replace("{word}", args[0]));
 
         request(url, (err, response, body) => {
             if (err || response.statusCode !== 200) message.reply(`The API seems to be having some issues right now, try again later!`);

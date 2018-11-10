@@ -301,6 +301,30 @@ client.on("message", async message => {
         }
     }
 
+    else if(command === "define"){
+        let url = "https://googledictionaryapi.eu-gb.mybluemix.net/?define={word}&lang=en"
+        url = encodeURI(url.replace("{word}", args[0]));
+
+        request(url, (err, response, body) => {
+            if (err || response.statusCode !== 200) message.reply(`The API seems to be having some issues right now, try again later!`);
+
+            const r = JSON.parse(body);
+
+            if (r.result_type == "no_results") message.reply(`Could not find any hits for '${args[0]}', please try again!`);
+
+            let msg = `${args[0]}:\n`
+
+            let meaning = r.meaning;
+
+            for(var x in meaning){
+                for(var y in meaning[x]){
+                    msg.concat(`${JSON.stringify(y.definition, null, 4)}\n`)
+                }
+            }
+            message.reply(msg);
+        });
+    }
+
     else if(command === "eval"){
         if(message.author.id !== config.ownerid){
             message.channel.send(unauth);

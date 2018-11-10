@@ -91,14 +91,17 @@ client.on("message", async message => {
     if(message.content.toLowerCase() === "livecounter"){
         let records = JSON.parse(fs.readFileSync('records.json'));
         await message.channel.send(`A total of ${records.woods} woods since January 18th 2018, with a record of ${records.record} woods on a single post. A total of ${records.aces} Danny ace${records.aces === 1 ? '' : 's'}.`);
+        return;
     }
 
     if(message.content.toLowerCase() === "!alexa play despacito" || message.content.toLowerCase() === "+alexa play despacito" || message.content.toLowerCase() === "alexa play despacito" || message.content.toLowerCase() === "play despacito" || message.content.toLowerCase() === "!play despacito" || message.content.toLowerCase() === "+play despacito"){
         message.reply("https://www.youtube.com/watch?v=kJQP7kiw5Fk");
+        return;
     }
 
     if(message.content.toLowerCase() === "!alexa play waluigi" || message.content.toLowerCase() === "+alexa play waluigi" || message.content.toLowerCase() === "alexa play waluigi" || message.content.toLowerCase() === "play waluigi" || message.content.toLowerCase() === "!play waluigi" || message.content.toLowerCase() === "+play waluigi"){
         message.reply("https://www.youtube.com/watch?v=yQ0iTDafXuM");
+        return;
     }
 
     if(message.content.toLowerCase() === "!waluigi" || message.content.toLowerCase() === "+waluigi"){
@@ -130,10 +133,12 @@ client.on("message", async message => {
         ];
         var response = responses[Math.floor(Math.random() * responses.length)];
         message.channel.send(`${client.users.get(config.nealid)} ${response}`);
+        return;
     }
 
     if(message.author.id !== client.id && message.channel.type === "dm" && message.author.id !== config.ownerid){
         client.users.get(config.ownerid).send(`DM recieved from ${message.author.tag} at ${new Date()}\nContent: ${message.content}`)
+        return;
     }
 
     if(message.content.indexOf(config.prefix) !== 0) return;
@@ -294,30 +299,6 @@ client.on("message", async message => {
             message.channel.send(unauth);
             return;
         }
-    }
-
-    else if(command === "define"){
-        let url = "https://googledictionaryapi.eu-gb.mybluemix.net/?define={word}&lang=en"
-        url = encodeURI(url.replace("{word}", args[0]));
-
-        request(url, (err, response, body) => {
-            if (err || response.statusCode !== 200) message.reply(`The API seems to be having some issues right now, try again later!`);
-
-            const r = JSON.parse(body);
-
-            if (r.result_type == "no_results") message.reply(`Could not find any hits for '${args[0]}', please try again!`);
-
-            let msg = `${args[0]}:\n`
-
-            let meaning = r.meaning;
-
-            for(var x in meaning){
-                for(var y in meaning[x]){
-                    msg.concat(`${JSON.stringify(y.definition, null, 4)}\n`)
-                }
-            }
-            message.reply(msg);
-        });
     }
 
     else if(command === "eval"){

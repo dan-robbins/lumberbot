@@ -125,7 +125,8 @@ client.on("message", async message => {
             "https://i.imgur.com/69AgXiB.png",
             "https://i.imgur.com/HmeqCMK.jpg",
             "https://i.imgur.com/cPe3Zpt.png",
-            "http://i.imgur.com/qeCpN41.jpg"
+            "http://i.imgur.com/qeCpN41.jpg",
+            "https://i.imgur.com/uVCiT7T.jpg"
         ];
         var response = responses[Math.floor(Math.random() * responses.length)];
         message.channel.send(`${client.users.get(config.nealid)} ${response}`);

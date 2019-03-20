@@ -6,7 +6,8 @@ const fs = require('fs');
 const request = require('request');
 const config = require("./config.json");
 
-var changeWoodName = true;
+var woodPosts = config.woodPosts;
+var changeWoodName = config.changeWoodName;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 
 const clean = text => {
@@ -73,11 +74,10 @@ client.on("message", async message => {
 
     if(message.author.bot) return;
 
-    const wood = client.emojis.find("name", "Wood");
+    const wood = client.emojis.find("name", "Wood").id;
 
-    if(message.author.id === config.woodid){
-        const wood = client.emojis.find("name", "Wood");
-        message.react(wood.id);
+    if(woodPosts && message.author.id === config.woodid){
+        message.react(wood);
     }
 
     if(message.content.toLowerCase() === "livecounter"){

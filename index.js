@@ -87,7 +87,14 @@ client.on("message", async message => {
     }
 
     if(message.content.toLowerCase() === "touchdowns" || message.content.toLowerCase() === "score" || message.content.toLowerCase() === "scoreboard"){
-        sendTouchdowns()
+        let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
+        let val = "Touchdowns:\n";
+        for(x in touchdowns){
+            val = val + `${x}: ${touchdowns[x]}\n`;
+        }
+        val = val.substring(0,val.length-1);
+        await message.channel.send(val);
+        return;
     }
 
     if(message.content.toLowerCase() === "!alexa play despacito" || message.content.toLowerCase() === "+alexa play despacito" || message.content.toLowerCase() === "alexa play despacito" || message.content.toLowerCase() === "play despacito" || message.content.toLowerCase() === "!play despacito" || message.content.toLowerCase() === "+play despacito"){
@@ -331,7 +338,14 @@ client.on("message", async message => {
     }
 
     else if(command === "touchdowns" || command === "score" || command === "scoreboard"){
-        sendTouchdowns()
+        let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
+        let val = "Touchdowns:\n";
+        for(x in touchdowns){
+            val = val + `${x}: ${touchdowns[x]}\n`;
+        }
+        val = val.substring(0,val.length-1);
+        await message.channel.send(val);
+        return;
     }
 
     else if(command === "touchdown"){
@@ -354,17 +368,6 @@ client.on("message", async message => {
         return;
     }
 });
-
-async function sendTouchdowns(){
-    let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
-    let val = "Touchdowns:\n";
-    for(x in touchdowns){
-        val = val + `${x}: ${touchdowns[x]}\n`;
-    }
-    val = val.substring(0,val.length-1);
-    await message.channel.send(val);
-    return;
-}
 
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));

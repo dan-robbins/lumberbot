@@ -7,7 +7,6 @@ const request = require('request');
 const config = require("./config.json");
 
 var changeWoodName = true;
-var deleteHa = false;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 
 const clean = text => {
@@ -40,9 +39,6 @@ client.on("messageReactionAdd", async (messageReaction, user) => {
         }
         if(records.woods % 1540 === 0){
             await messageReaction.message.channel.send(`1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 1540 ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} ${client.users.get(config.alexid)} We have officially reached wood levels ${records.woods/1540}x higher than ${client.users.get(config.alexid)}\'s SAT score! Congratulations!`);
-        }
-        if(records.woods === 6969){
-            await messageReaction.message.channel.send("6969 Woods!\nhttps://www.youtube.com/watch?v=PvLz5kCVIss")
         }
         if(messageReaction.count > records.record){
             await messageReaction.message.channel.send(`New record! ${messageReaction.count} woods on a single post! Previous record was ${records.record} woods.`);
@@ -82,16 +78,16 @@ client.on("message", async message => {
     if(message.author.id === config.woodid){
         const wood = client.emojis.find("name", "Wood");
         message.react(wood.id);
-        if(deleteHa && message.content === "ha"){
-            message.delete();
-            return;
-        }
     }
 
     if(message.content.toLowerCase() === "livecounter"){
         let records = JSON.parse(fs.readFileSync('records.json'));
         await message.channel.send(`A total of ${records.woods} woods since January 18th 2018, with a record of ${records.record} woods on a single post. A total of ${records.aces} Danny ace${records.aces === 1 ? '' : 's'}.`);
         return;
+    }
+
+    if(message.content.toLowerCase() === "touchdowns" || message.content.toLowerCase() === "score" || message.content.toLowerCase() === "scoreboard"){
+        sendTouchdowns()
     }
 
     if(message.content.toLowerCase() === "!alexa play despacito" || message.content.toLowerCase() === "+alexa play despacito" || message.content.toLowerCase() === "alexa play despacito" || message.content.toLowerCase() === "play despacito" || message.content.toLowerCase() === "!play despacito" || message.content.toLowerCase() === "+play despacito"){
@@ -333,11 +329,42 @@ client.on("message", async message => {
             return;
         }
     }
+
+    else if(command === "touchdowns" || command === "score" || command === "scoreboard"){
+        sendTouchdowns()
+    }
+
+    else if(command === "touchdown"){
+        if(args[0].length === 0){
+            return;
+        }
+        let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
+        let val = 0;
+        if(args[0] in touchdowns){
+            val = touchdowns[args[0]]
+        }
+        touchdowns[args[0]] = val + 1
+        fs.writeFileSync('touchdowns.json', (JSON.stringify(touchdowns, null, 4)));
+        message.channel.send(`Touchdown ${args[0]}!`);
+        return;
+    }
+
     else{
         message.channel.send('Command not recognized');
         return;
     }
 });
+
+function sendTouchdowns(){
+    let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
+    let val = "Touchdowns:\n";
+    for(x in touchdowns){
+        val = val + `${x}: ${touchdowns[x]}\n`;
+    }
+    val = val.substring(0,val.length-1);
+    await message.channel.send(val);
+    return;
+}
 
 client.on("error", (e) => console.error(e));
 client.on("warn", (e) => console.warn(e));

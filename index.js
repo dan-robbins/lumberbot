@@ -90,7 +90,7 @@ client.on("message", async message => {
         let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
         let val = "Touchdowns:\n";
         for(let x in touchdowns){
-            val = val + `${x}: ${touchdowns[x]}\n`;
+            val = val + `${x.charAt(0).toUpperCase() + x.slice(1)}: ${touchdowns[x]}\n`;
         }
         val = val.substring(0,val.length-1);
         await message.channel.send(val);
@@ -341,7 +341,7 @@ client.on("message", async message => {
         let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
         let val = "Touchdowns:\n";
         for(let x in touchdowns){
-            val = val + `${x}: ${touchdowns[x]}\n`;
+            val = val + `${x.charAt(0).toUpperCase() + x.slice(1)}: ${touchdowns[x]}\n`;
         }
         val = val.substring(0,val.length-1);
         await message.channel.send(val);
@@ -360,7 +360,7 @@ client.on("message", async message => {
             if(args[1].toLowerCase() in touchdowns){
                 touchdowns[args[1].toLowerCase()] = touchdowns[args[1].toLowerCase()] - 1;
                 fs.writeFileSync('touchdowns.json', (JSON.stringify(touchdowns, null, 4)));
-                message.channel.send(`Touchdown removed for ${args[1]}.`);
+                message.channel.send(`Touchdown removed for ${args[1].charAt(0).toUpperCase() + args[1].slice(1)}.`);
                 return;
             }
             else{
@@ -374,7 +374,7 @@ client.on("message", async message => {
             }
             touchdowns[args[0].toLowerCase()] = val + 1
             fs.writeFileSync('touchdowns.json', (JSON.stringify(touchdowns, null, 4)));
-            message.channel.send(`Touchdown ${args[0]}!`);
+            message.channel.send(`Touchdown ${args[0].charAt(0).toUpperCase() + args[0].slice(1)}!`);
             return;
         }
     }

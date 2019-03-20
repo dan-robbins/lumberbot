@@ -89,7 +89,7 @@ client.on("message", async message => {
     if(message.content.toLowerCase() === "touchdowns" || message.content.toLowerCase() === "score" || message.content.toLowerCase() === "scoreboard"){
         let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
         let val = "Touchdowns:\n";
-        for(x in touchdowns){
+        for(let x in touchdowns){
             val = val + `${x}: ${touchdowns[x]}\n`;
         }
         val = val.substring(0,val.length-1);

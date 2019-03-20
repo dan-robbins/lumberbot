@@ -355,7 +355,7 @@ client.on("message", async message => {
     }
 });
 
-function sendTouchdowns(){
+async function sendTouchdowns(){
     let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
     let val = "Touchdowns:\n";
     for(x in touchdowns){

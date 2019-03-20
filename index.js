@@ -353,14 +353,30 @@ client.on("message", async message => {
             return;
         }
         let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
-        let val = 0;
-        if(args[0] in touchdowns){
-            val = touchdowns[args[0]]
+        if(args[0].toLowerCase() === "remove"){
+            if(args[1].length === 0){
+                return;
+            }
+            if(args[1].toLowerCase() in touchdowns){
+                touchdowns[args[1].toLowerCase()] = touchdowns[args[1].toLowerCase()] - 1;
+                fs.writeFileSync('touchdowns.json', (JSON.stringify(touchdowns, null, 4)));
+                message.channel.send(`Touchdown removed for ${args[1]}.`);
+                return;
+            }
+            else{
+                return;
+            }
         }
-        touchdowns[args[0]] = val + 1
-        fs.writeFileSync('touchdowns.json', (JSON.stringify(touchdowns, null, 4)));
-        message.channel.send(`Touchdown ${args[0]}!`);
-        return;
+        else{
+            let val = 0;
+            if(args[0].toLowerCase() in touchdowns){
+                val = touchdowns[args[0].toLowerCase()]
+            }
+            touchdowns[args[0].toLowerCase()] = val + 1
+            fs.writeFileSync('touchdowns.json', (JSON.stringify(touchdowns, null, 4)));
+            message.channel.send(`Touchdown ${args[0]}!`);
+            return;
+        }
     }
 
     else{

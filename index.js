@@ -47,6 +47,7 @@ client.on("messageReactionAdd", async (messageReaction, user) => {
         }
         if(changeWoodName){
             client.guilds.get(config.serverid).members.get(config.woodid).setNickname(records.woods.toString(10));
+            client.guilds.get(config.pengisid).members.get(config.woodid).setNickname(records.woods.toString(10));
         }
         fs.writeFileSync('records.json', (JSON.stringify(records, null, 4)));
         return;
@@ -64,6 +65,7 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
         records.woods = records.woods - 1;
         if(changeWoodName){
             client.guilds.get(config.serverid).members.get(config.woodid).setNickname(records.woods.toString(10));
+            client.guilds.get(config.pengisid).members.get(config.woodid).setNickname(records.woods.toString(10));
         }
         fs.writeFileSync('records.json', (JSON.stringify(records, null, 4)));
         return;

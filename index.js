@@ -31,7 +31,7 @@ client.on("guildDelete", guild => {
 });
 
 client.on("messageReactionAdd", async (messageReaction, user) => {
-    const wood = client.emojis.find("name", "Wood");
+    const wood = client.emojis.find(x => x.name === "Wood");
     if(messageReaction.emoji.id === wood.id && messageReaction.message.author.id === config.woodid){
         let records = JSON.parse(fs.readFileSync('records.json'));
         records.woods = records.woods + 1;
@@ -59,7 +59,7 @@ client.on("messageReactionAdd", async (messageReaction, user) => {
 });
 
 client.on("messageReactionRemove", async (messageReaction, user) => {
-    const wood = client.emojis.find("name", "Wood");
+    const wood = client.emojis.find(x => x.name === "Wood");
     if(messageReaction.emoji.id === wood.id && messageReaction.message.author.id === config.woodid){
         let records = JSON.parse(fs.readFileSync('records.json'));
         records.woods = records.woods - 1;
@@ -76,7 +76,7 @@ client.on("message", async message => {
 
     if(message.author.bot) return;
 
-    const wood = client.emojis.find("name", "Wood").id;
+    const wood = client.emojis.find(x => x.name === "Wood").id;
 
     if(woodPosts && message.author.id === config.woodid){
         message.react(wood);

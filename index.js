@@ -173,7 +173,7 @@ client.on("message", async message => {
 
     else if(command === "ignoreowen") {
         ignoreOwen = true;
-        message.channel.send(`Ignoring commands from ${config.woodid}`)
+        message.channel.send(`Ignoring commands from ${client.users.get(config.woodid)}`)
     }
 
     else if(command === "unignoreowen") {

@@ -8,6 +8,7 @@ const config = require("./config.json");
 
 var woodPosts = config.woodPosts;
 var changeWoodName = config.changeWoodName;
+var ignoreOwen = false;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 
 const clean = text => {
@@ -88,6 +89,8 @@ client.on("message", async message => {
         return;
     }
 
+    if(ignoreOwen && message.author.id === config.woodid) return;
+
     if(message.content.toLowerCase() === "touchdowns" || message.content.toLowerCase() === "score" || message.content.toLowerCase() === "scoreboard"){
         let touchdowns = JSON.parse(fs.readFileSync('touchdowns.json'));
         let val = "Touchdowns:\n";
@@ -166,6 +169,20 @@ client.on("message", async message => {
         const m = await message.channel.send("Ping?");
         m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. API Latency is ${Math.round(client.ping)}ms`);
         return;
+    }
+
+    else if(command === "ignoreowen") {
+        ignoreOwen = true;
+        message.channel.send(`Ignoring commands from ${config.woodid}`)
+    }
+
+    else if(command === "unignoreowen") {
+        if(message.author.id !== config.ownerid){
+            message.channel.send(unauth);
+            return;
+        }
+        ignoreOwen = false;
+        message.channel.send("Lumberboy un-ignored")
     }
 
     else if(command === "livecounter"){

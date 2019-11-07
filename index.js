@@ -82,7 +82,7 @@ client.on("message", async message => {
 
     if(woodPosts && message.author.id === config.woodid){
         if(blocked){
-            message.channel.send(`${client.users.get(config.alexid)} :Wood:`).then(msg => msg.react(wood))
+            message.channel.send(`${client.users.get(config.woodid)} ${client.emojis.find(x => x.name === "Wood")}`).then(msg => msg.react(wood))
         }
         else{
             message.react(wood);

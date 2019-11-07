@@ -8,7 +8,8 @@ const config = require("./config.json");
 
 var woodPosts = config.woodPosts;
 var changeWoodName = config.changeWoodName;
-var ignoreOwen = false;
+var ignoreOwen = config.ignoreOwen;
+var blocked = config.blocked;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 
 const clean = text => {
@@ -33,7 +34,7 @@ client.on("guildDelete", guild => {
 
 client.on("messageReactionAdd", async (messageReaction, user) => {
     const wood = client.emojis.find(x => x.name === "Wood");
-    if(messageReaction.emoji.id === wood.id && messageReaction.message.author.id === config.woodid){
+    if(messageReaction.emoji.id === wood.id && (messageReaction.message.author.id === config.woodid || messageReaction.message.author.id === "460869499340718080")){
         let records = JSON.parse(fs.readFileSync('records.json'));
         records.woods = records.woods + 1;
         if(records.woods % 500 === 0 || records.woods % 1540 === 0){
@@ -80,7 +81,12 @@ client.on("message", async message => {
     const wood = client.emojis.find(x => x.name === "Wood").id;
 
     if(woodPosts && message.author.id === config.woodid){
-        message.react(wood);
+        if(blocked){
+            message.channel.send(`${client.users.get(config.alexid)} :Wood:`).then(msg => msg.react(wood))
+        }
+        else{
+            message.react(wood);
+        }
     }
 
     if(message.content.toLowerCase() === "livecounter"){

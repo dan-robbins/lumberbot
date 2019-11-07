@@ -81,11 +81,9 @@ client.on("message", async message => {
     const wood = client.emojis.find(x => x.name === "Wood").id;
 
     if(woodPosts && message.author.id === config.woodid){
+        message.react(wood);
         if(blocked){
-            message.channel.send(`${client.users.get(config.woodid)} ${client.emojis.find(x => x.name === "Wood")}`).then(msg => msg.react(wood))
-        }
-        else{
-            message.react(wood);
+            message.channel.send(`${client.users.get(config.woodid)} ${client.emojis.find(x => x.name === "Wood")}`).then(msg => msg.react(wood));
         }
     }
 

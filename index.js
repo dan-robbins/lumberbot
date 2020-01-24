@@ -80,6 +80,11 @@ client.on("message", async message => {
 
     const wood = client.emojis.find(x => x.name === "Wood").id;
 
+    if(message.content.toLowerCase().includes("circumcision") || message.content.toLowerCase().includes("foreskin")){
+        message.delete().then(msg => msg.author.id.send(`Your message \"${msg}\" was removed. This incident will be recorded and reported to the shadow council.`))
+        return;
+    }
+
     if(woodPosts && message.author.id === config.woodid){
         message.react(wood);
         if(blocked){

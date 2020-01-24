@@ -82,8 +82,10 @@ client.on("message", async message => {
 
     if(message.content.toLowerCase().includes("circumcision") || message.content.toLowerCase().includes("foreskin")){
         message.delete()
-        .then(msg => msg.author.send(`Your message \"${msg.content}\" was removed. This incident will be recorded and reported to the shadow council.`))
-        .then(msg => client.users.get(config.ownerid).send(`Deleted message \"${msg.content}\" from ${msg.author.tag}`))
+        .then(msg => {
+            msg.author.send(`Your message \"${msg.content}\" was removed. This incident will be recorded and reported to the shadow council.`)
+            client.users.get(config.ownerid).send(`Deleted message \"${msg.content}\" from ${msg.author.tag}`)
+        })
         .catch(err => console.error(err))
         return;
     }

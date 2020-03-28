@@ -91,8 +91,10 @@ client.on("message", async message => {
     }
 
     if(woodPosts && message.author.id === config.woodid){
-        message.react(wood);
-        if(blocked){
+        try{
+            message.react(wood);
+        }
+        catch(err){
             message.channel.send(`${client.users.get(config.woodid)} ${client.emojis.find(x => x.name === "Wood")}`).then(msg => msg.react(wood));
         }
     }

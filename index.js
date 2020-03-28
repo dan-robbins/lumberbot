@@ -11,6 +11,7 @@ var changeWoodName = config.changeWoodName;
 var ignoreOwen = config.ignoreOwen;
 var blocked = config.blocked;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
+var censor = true;
 
 const clean = text => {
     if(typeof(text) === "string")
@@ -80,7 +81,7 @@ client.on("message", async message => {
 
     const wood = client.emojis.find(x => x.name === "Wood").id;
 
-    if(message.content.toLowerCase().includes("circumci") || message.content.toLowerCase().includes("foreskin")){
+    if(censor && (message.content.toLowerCase().includes("circumci") || message.content.toLowerCase().includes("foreskin"))){
         message.delete()
         .then(msg => {
             msg.author.send(`Your message \"${msg.content}\" was removed. This incident will be recorded and reported to the shadow council.`)

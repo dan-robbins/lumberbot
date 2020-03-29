@@ -96,6 +96,9 @@ client.on("message", async message => {
             message.react(wood);
         }
         catch(err){
+            console.log(err)
+        }
+        if(blocked){
             message.channel.send(`${client.users.get(config.woodid)} ${client.emojis.find(x => x.name === "Wood")}`).then(msg => msg.react(wood));
         }
     }

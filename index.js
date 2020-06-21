@@ -165,6 +165,7 @@ client.on("message", async message => {
             "https://i.imgur.com/bVP45QL.jpg",
             "https://i.imgur.com/n0WSEmm.jpg",
             "https://i.imgur.com/wj8b3TJ.jpg",
+			"https://i.imgur.com/uIvEObB.png",
             "https://www.youtube.com/watch?v=m9I4xuArxhA",
             "https://www.youtube.com/watch?v=Rf9PClQKOmg",
             "https://www.youtube.com/watch?v=yQ0iTDafXuM",

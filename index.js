@@ -76,7 +76,7 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
 });
 
 client.on("guildMemberRemove", async member => {
-    let voiceChannel = client.guilds.get("530908082709200946").channels.get("590359235523772432")
+    let voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
         dispatcher.on("end", end => {voiceChannel.leave();});
@@ -84,7 +84,7 @@ client.on("guildMemberRemove", async member => {
 });
 
 client.on("guildBanAdd", async (guild, user) => {
-    let voiceChannel = client.guilds.get("530908082709200946").channels.get("590359235523772432")
+    let voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
         dispatcher.on("end", end => {voiceChannel.leave();});

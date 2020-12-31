@@ -12,7 +12,7 @@ var ignoreOwen = config.ignoreOwen;
 var blocked = config.blocked;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 var censor = true;
-var endDate = 0;
+var endDate = new Date();
 var channelTimeout = 15000
 
 const clean = text => {
@@ -452,5 +452,7 @@ client.on("debug", (e) => console.info(e));
 client.login(config.token);
 
 if(Date.now() >= endDate.getTime()){
-    message.guild.me.voiceChannel.leave();
+    if (message.guild.me.voiceChannel !== undefined) {
+        message.guild.me.voiceChannel.leave();
+    }
 }

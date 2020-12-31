@@ -91,7 +91,19 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
 });
 
 client.on("guildMemberRemove", async member => {
-    voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
+    const voiceChannels = client.guilds.get("530908082709200946").channels.filter(c => c.type === 'voice');
+    let maxCount = 0
+    for (const [id, channel] of voiceChannels){
+        let count = 0
+        count += channel.members.size;
+        if (count > maxCount){
+            maxCount = count
+            voiceChannel = channel
+        }
+    }
+    if (maxCount == 0){
+        voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
+    }
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
         endDate = new Date()
@@ -107,7 +119,19 @@ client.on("guildMemberRemove", async member => {
 });
 
 client.on("guildBanAdd", async (guild, user) => {
-    voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
+    const voiceChannels = client.guilds.get("530908082709200946").channels.filter(c => c.type === 'voice');
+    let maxCount = 0
+    for (const [id, channel] of voiceChannels){
+        let count = 0
+        count += channel.members.size;
+        if (count > maxCount){
+            maxCount = count
+            voiceChannel = channel
+        }
+    }
+    if (maxCount == 0){
+        voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
+    }
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
         endDate = new Date()

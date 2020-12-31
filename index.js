@@ -12,6 +12,8 @@ var ignoreOwen = config.ignoreOwen;
 var blocked = config.blocked;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 var censor = true;
+var endDate = 0;
+var channelTimeout = 15000
 
 const clean = text => {
     if(typeof(text) === "string")
@@ -79,7 +81,8 @@ client.on("guildMemberRemove", async member => {
     let voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
-        dispatcher.on("end", end => {voiceChannel.leave();});
+        endDate = new Date(Date.now() + channelTimeout)
+        //dispatcher.on("end", end => {voiceChannel.leave();});
     }).catch(err => console.log(err));
 });
 
@@ -87,7 +90,8 @@ client.on("guildBanAdd", async (guild, user) => {
     let voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
-        dispatcher.on("end", end => {voiceChannel.leave();});
+        endDate = new Date(Date.now() + channelTimeout)
+        //dispatcher.on("end", end => {voiceChannel.leave();});
     }).catch(err => console.log(err));
 });
 
@@ -446,3 +450,7 @@ client.on("warn", (e) => console.warn(e));
 client.on("debug", (e) => console.info(e));
 
 client.login(config.token);
+
+if(Date.now() >= endDate.getTime()){
+    message.guild.me.voiceChannel.leave();
+}

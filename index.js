@@ -13,7 +13,7 @@ var blocked = config.blocked;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 var censor = true;
 var endDate = new Date();
-var channelTimeout = 15
+var channelTimeout = 120
 var voiceChannel = undefined
 
 const clean = text => {

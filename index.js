@@ -62,6 +62,12 @@ client.on("messageReactionAdd", async (messageReaction, user) => {
         messageReaction.remove(user);
         return;
     }
+    if(Date.now() >= endDate.getTime()){
+        if (voiceChannel != undefined) {
+            voiceChannel.leave();
+            voiceChannel = undefined
+        }
+    }
 });
 
 client.on("messageReactionRemove", async (messageReaction, user) => {
@@ -76,6 +82,12 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
         fs.writeFileSync('records.json', (JSON.stringify(records, null, 4)));
         return;
     }
+    if(Date.now() >= endDate.getTime()){
+        if (voiceChannel != undefined) {
+            voiceChannel.leave();
+            voiceChannel = undefined
+        }
+    }
 });
 
 client.on("guildMemberRemove", async member => {
@@ -85,6 +97,12 @@ client.on("guildMemberRemove", async member => {
         endDate = new Date()
         endDate.setSeconds(endDate.getSeconds() + channelTimeout)
         //dispatcher.on("end", end => {voiceChannel.leave();});
+        if(Date.now() >= endDate.getTime()){
+            if (voiceChannel != undefined) {
+                voiceChannel.leave();
+                voiceChannel = undefined
+            }
+        }
     }).catch(err => console.log(err));
 });
 
@@ -95,10 +113,23 @@ client.on("guildBanAdd", async (guild, user) => {
         endDate = new Date()
         endDate.setSeconds(endDate.getSeconds() + channelTimeout)
         //dispatcher.on("end", end => {voiceChannel.leave();});
+        if(Date.now() >= endDate.getTime()){
+            if (voiceChannel != undefined) {
+                voiceChannel.leave();
+                voiceChannel = undefined
+            }
+        }
     }).catch(err => console.log(err));
 });
 
 client.on("message", async message => {
+
+    if(Date.now() >= endDate.getTime()){
+        if (voiceChannel != undefined) {
+            voiceChannel.leave();
+            voiceChannel = undefined;
+        }
+    }
 
     if(message.author.bot) return;
 
@@ -453,10 +484,3 @@ client.on("warn", (e) => console.warn(e));
 client.on("debug", (e) => console.info(e));
 
 client.login(config.token);
-
-if(Date.now() >= endDate.getTime()){
-    if (voiceChannel != undefined) {
-        voiceChannel.leave();
-        voiceChannel = undefined
-    }
-}

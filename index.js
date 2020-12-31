@@ -14,6 +14,7 @@ var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ri
 var censor = true;
 var endDate = new Date();
 var channelTimeout = 15000
+var voiceChannel = undefined
 
 const clean = text => {
     if(typeof(text) === "string")
@@ -78,7 +79,7 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
 });
 
 client.on("guildMemberRemove", async member => {
-    let voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
+    voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
         endDate = new Date(Date.now() + channelTimeout)
@@ -87,7 +88,7 @@ client.on("guildMemberRemove", async member => {
 });
 
 client.on("guildBanAdd", async (guild, user) => {
-    let voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
+    voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
     voiceChannel.join().then(connection => {
         const dispatcher = connection.playFile("sounds/cannon3.mp3");
         endDate = new Date(Date.now() + channelTimeout)
@@ -452,7 +453,8 @@ client.on("debug", (e) => console.info(e));
 client.login(config.token);
 
 if(Date.now() >= endDate.getTime()){
-    if (message.guild.me.voiceChannel !== undefined) {
-        message.guild.me.voiceChannel.leave();
+    if (voiceChannel !== undefined) {
+        voiceChannel.leave();
+        voiceChannel = undefined
     }
 }

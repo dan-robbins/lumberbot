@@ -91,6 +91,8 @@ client.on("messageReactionRemove", async (messageReaction, user) => {
 });
 
 client.on("guildMemberRemove", async member => {
+    client.users.get(config.ownerid).send(`Member ${member.user.tag}/${member.displayName} left ${member.guild.name}!`)
+    
     const voiceChannels = client.guilds.get("530908082709200946").channels.filter(c => c.type === 'voice');
     let maxCount = 0
     for (const [id, channel] of voiceChannels){

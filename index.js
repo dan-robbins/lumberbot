@@ -104,48 +104,22 @@ client.on("guildMemberRemove", async member => {
         }
     }
     if (maxCount == 0){
-        voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
+        voiceChannel = undefined 
     }
-    voiceChannel.join().then(connection => {
-        const dispatcher = connection.playFile("sounds/cannon3.mp3");
-        endDate = new Date()
-        endDate.setSeconds(endDate.getSeconds() + channelTimeout)
-        //dispatcher.on("end", end => {voiceChannel.leave();});
-        if(Date.now() >= endDate.getTime()){
-            if (voiceChannel != undefined) {
-                voiceChannel.leave();
-                voiceChannel = undefined
+    if (voiceChannel != undefined){
+        voiceChannel.join().then(connection => {
+            const dispatcher = connection.playFile("sounds/cannon3.mp3");
+            endDate = new Date()
+            endDate.setSeconds(endDate.getSeconds() + channelTimeout)
+            //dispatcher.on("end", end => {voiceChannel.leave();});
+            if(Date.now() >= endDate.getTime()){
+                if (voiceChannel != undefined) {
+                    voiceChannel.leave();
+                    voiceChannel = undefined
+                }
             }
-        }
-    }).catch(err => console.log(err));
-});
-
-client.on("guildBanAdd", async (guild, user) => {
-    const voiceChannels = client.guilds.get("530908082709200946").channels.filter(c => c.type === 'voice');
-    let maxCount = 0
-    for (const [id, channel] of voiceChannels){
-        let count = 0
-        count += channel.members.size;
-        if (count > maxCount){
-            maxCount = count
-            voiceChannel = channel
-        }
+        }).catch(err => console.log(err));
     }
-    if (maxCount == 0){
-        voiceChannel = client.guilds.get("530908082709200946").channels.get("614266482406195220")
-    }
-    voiceChannel.join().then(connection => {
-        const dispatcher = connection.playFile("sounds/cannon3.mp3");
-        endDate = new Date()
-        endDate.setSeconds(endDate.getSeconds() + channelTimeout)
-        //dispatcher.on("end", end => {voiceChannel.leave();});
-        if(Date.now() >= endDate.getTime()){
-            if (voiceChannel != undefined) {
-                voiceChannel.leave();
-                voiceChannel = undefined
-            }
-        }
-    }).catch(err => console.log(err));
 });
 
 client.on("message", async message => {

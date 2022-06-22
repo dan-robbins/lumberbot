@@ -478,6 +478,27 @@ client.on("message", async message => {
         return;
     }
 
+    else if(command === "clean"){
+        if(message.author.id !== config.ownerid){
+            message.channel.send(unauth);
+            return;
+        }
+        if(args[0].length === 0){
+            return;
+        }
+        client.guilds.get("530908082709200946").channels.get(args[0]).messages.fetch({
+            limit: 100 // Change `100` to however many messages you want to fetch
+        }).then((messages) => { 
+            const botMessages = [];
+            messages.filter((m => m.author.id === "184405311681986560") || funCommands.some(v => m.content.toLowerCase().includes(v))).forEach(msg => botMessages.push(msg))
+            message.channel.bulkDelete(botMessages).then(() => {
+                message.channel.send("Cleared 100 messages").then(msg => msg.delete({
+                    timeout: 3000
+                }))
+            });
+        })
+    }
+
     else{
         message.channel.send('Command not recognized');
         return;

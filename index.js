@@ -478,7 +478,7 @@ client.on("message", async message => {
         return;
     }
 
-    else if(command === "clean"){
+    else if(command === "cleanBot"){
         if(message.author.id !== config.ownerid){
             message.channel.send(unauth);
             return;
@@ -490,7 +490,28 @@ client.on("message", async message => {
             limit: 100 // Change `100` to however many messages you want to fetch
         }).then((messages) => { 
             const botMessages = [];
-            messages.filter((m => m.author.id === "184405311681986560") || funCommands.some(v => m.content.toLowerCase().includes(v))).forEach(msg => botMessages.push(msg))
+            messages.filter(m => m.author.id === "184405311681986560")
+            client.guilds.get("530908082709200946").channels.get(args[0]).bulkDelete(botMessages).then(() => {
+                message.channel.send("Cleared 100 messages").then(msg => msg.delete({
+                    timeout: 3000
+                }))
+            });
+        })
+    }
+
+    else if(command === "cleanCommands"){
+        if(message.author.id !== config.ownerid){
+            message.channel.send(unauth);
+            return;
+        }
+        if(args[0].length === 0){
+            return;
+        }
+        client.guilds.get("530908082709200946").channels.get(args[0]).fetchMessages({
+            limit: 100 // Change `100` to however many messages you want to fetch
+        }).then((messages) => { 
+            const botMessages = [];
+            messages.filter(funCommands.some(v => m.content.toLowerCase().includes(v))).forEach(msg => botMessages.push(msg))
             client.guilds.get("530908082709200946").channels.get(args[0]).bulkDelete(botMessages).then(() => {
                 message.channel.send("Cleared 100 messages").then(msg => msg.delete({
                     timeout: 3000

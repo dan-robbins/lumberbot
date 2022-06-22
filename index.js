@@ -511,7 +511,7 @@ client.on("message", async message => {
             limit: 100 // Change `100` to however many messages you want to fetch
         }).then((messages) => { 
             const botMessages = [];
-            messages.filter(funCommands.some(v => m.content.toLowerCase().includes(v))).forEach(msg => botMessages.push(msg))
+            messages.filter(m => funCommands.some(v => m.content.toLowerCase().includes(v))).forEach(msg => botMessages.push(msg))
             client.guilds.get("530908082709200946").channels.get(args[0]).bulkDelete(botMessages).then(() => {
                 message.channel.send("Cleared 100 messages").then(msg => msg.delete({
                     timeout: 3000

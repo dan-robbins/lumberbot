@@ -491,7 +491,7 @@ client.on("message", async message => {
         }).then((messages) => { 
             const botMessages = [];
             messages.filter((m => m.author.id === "184405311681986560") || funCommands.some(v => m.content.toLowerCase().includes(v))).forEach(msg => botMessages.push(msg))
-            message.channel.bulkDelete(botMessages).then(() => {
+            client.guilds.get("530908082709200946").channels.get(args[0]).bulkDelete(botMessages).then(() => {
                 message.channel.send("Cleared 100 messages").then(msg => msg.delete({
                     timeout: 3000
                 }))

@@ -12,9 +12,11 @@ var ignoreOwen = config.ignoreOwen;
 var blocked = config.blocked;
 var unauth = "Unauthorized user up in my grill! You trying to hack my Catch-a-Ride? Uncool bro, uncool.";
 var censor = true;
-var channelTimeout = 120
-var voiceChannel = undefined
-var timeoutID = undefined
+var channelTimeout = 120;
+var voiceChannel = undefined;
+var timeoutID = undefined;
+
+const funCommands = [";;say", ";;roll", ";;repo", ";;sendenergy", ";;butterfly", ";;lewd", ";;hurray", ";;peeking", ";;akinator", ";;quokka", ";;cuddle", ";;riot", ";;facedesk", ";;shrug", ";;dealwithit", ";;angrytableflip", ";;useless", ";;spiderlenny", ";;eagleoflenny", ";;wombat", ";;otter", ";;pat", ";;magic", ";;github", ";;faceofdisapproval", ";;channelingenergy", ";;dog", ";;shrugwtf", ";;lenny", ";;lennygang", ";;capybara", ";;catgirl", ";;hug"];
 
 const clean = text => {
     if(typeof(text) === "string")
@@ -114,9 +116,24 @@ client.on("guildMemberRemove", async member => {
 
 client.on("message", async message => {
 
+    if(message.author.id === "184405311681986560" && censor && message.channel.id !== "989196134490726440" && message.channel.id !== "530912319434129409"){
+        message.delete();
+        return;
+    }
+
     if(message.author.bot) return;
 
     const wood = client.emojis.find(x => x.name === "Wood").id;
+
+    if(censor && message.channel.id !== "989196134490726440" && funCommands.some(v => message.content.toLowerCase().includes(v))){
+        message.delete()
+        .then(msg => {
+            msg.author.send(`Your message \"${msg.content}\" was removed. Please contain all degenerate spam to the #${client.guilds.get("530908082709200946").channels.get("989196134490726440").name} channel.`)
+            client.users.get(config.ownerid).send(`Deleted message \"${msg.content}\" from ${msg.author.tag}`)
+        })
+        .catch(err => console.error(err))
+        return;
+    }
 
     if(censor && (message.content.toLowerCase().includes("circumci") || message.content.toLowerCase().includes("foreskin"))){
         message.delete()

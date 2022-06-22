@@ -478,7 +478,7 @@ client.on("message", async message => {
         return;
     }
 
-    else if(command === "cleanBot"){
+    else if(command === "cleanbot"){
         if(message.author.id !== config.ownerid){
             message.channel.send(unauth);
             return;
@@ -499,7 +499,7 @@ client.on("message", async message => {
         })
     }
 
-    else if(command === "cleanCommands"){
+    else if(command === "cleancommands"){
         if(message.author.id !== config.ownerid){
             message.channel.send(unauth);
             return;

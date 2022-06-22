@@ -486,7 +486,7 @@ client.on("message", async message => {
         if(args[0].length === 0){
             return;
         }
-        client.guilds.get("530908082709200946").channels.get(args[0]).messages.fetch({
+        client.guilds.get("530908082709200946").channels.get(args[0]).fetchMessages({
             limit: 100 // Change `100` to however many messages you want to fetch
         }).then((messages) => { 
             const botMessages = [];

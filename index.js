@@ -116,7 +116,11 @@ client.on("guildMemberRemove", async member => {
 
 client.on("message", async message => {
 
-    if(message.author.id === "184405311681986560" && censor && message.channel.id !== "989196134490726440" && message.channel.id !== "530912319434129409"){
+    if(message.channel.type !== 'dm' && message.channel.type !== 'group' && message.channel.type !== 'text'{
+		return;
+	}
+	
+	if(message.author.id === "184405311681986560" && censor && message.channel.id !== "989196134490726440" && message.channel.id !== "530912319434129409"){
         message.delete();
         return;
     }

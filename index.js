@@ -116,7 +116,7 @@ client.on("guildMemberRemove", async member => {
 
 client.on("message", async message => {
 
-    if(message.channel.type !== 'dm' && message.channel.type !== 'group' && message.channel.type !== 'text'{
+    if(message.channel.type !== 'dm' && message.channel.type !== 'group' && message.channel.type !== 'text'){
 		return;
 	}
 	
